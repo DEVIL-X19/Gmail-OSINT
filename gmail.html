@@ -1,0 +1,2861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030806">
+
+<title>TV HASH CRACKER V7 | ULTRA PRO</title>
+
+<style>
+:root {
+  --bg: #030806;
+  --panel: #08140e;
+  --panel2: #0c1b13;
+  --green: #00ff88;
+  --green2: #00bd68;
+  --red: #ff3655;
+  --gold: #ffce68;
+  --text: #e1ffeb;
+  --muted: #779785;
+  --border: #1b4730;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Consolas, "Courier New", monospace;
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+#matrix {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  opacity: .22;
+  pointer-events: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 20%, #ff365516, transparent 38%),
+    radial-gradient(circle at 85% 75%, #00ff8812, transparent 40%);
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    transparent 0px,
+    transparent 3px,
+    #0000000a 4px
+  );
+}
+
+.container {
+  width: min(96%, 1250px);
+  margin: auto;
+  padding: 14px;
+}
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  padding: 30px 10px 35px;
+}
+
+.logo {
+  width: 92px;
+  height: 92px;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  border-radius: 23px;
+  border: 2px solid var(--green);
+  background: linear-gradient(145deg, #0a2315, #030806);
+  box-shadow:
+    0 0 35px #00ff8833,
+    inset 0 0 25px #00ff8812;
+  font-size: 43px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.header h1 {
+  margin-top: 23px;
+  font-size: clamp(27px, 5vw, 48px);
+  letter-spacing: 2px;
+  text-shadow: 0 0 24px #00ff8860;
+}
+
+.red {
+  color: var(--red);
+}
+
+.green {
+  color: var(--green);
+}
+
+.gold {
+  color: var(--gold);
+}
+
+.subtitle {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 20px;
+}
+
+.badge {
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 8px 13px;
+  background: #08170f;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 12px var(--green);
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: .2;
+  }
+}
+
+/* PANELS */
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  padding: 22px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: linear-gradient(145deg, #0a1a11f5, #050d09f8);
+  box-shadow: 0 15px 40px #0008;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--green),
+    var(--red),
+    transparent
+  );
+}
+
+.panel-title {
+  color: var(--green);
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-title .icon {
+  font-size: 20px;
+}
+
+label {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+input {
+  width: 100%;
+  padding: 16px;
+  color: var(--green);
+  background: #010604;
+  border: 1px solid #24533a;
+  border-radius: 9px;
+  font-size: 14px;
+  outline: none;
+  transition: .25s;
+}
+
+input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 20px #00ff8820;
+}
+
+button {
+  border: 0;
+  border-radius: 9px;
+  padding: 15px 18px;
+  font-size: 12px;
+  font-weight: bold;
+  transition: .2s;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+}
+
+.btn-green {
+  background: var(--green);
+  color: #001b0b;
+  box-shadow: 0 0 18px #00ff8820;
+}
+
+.btn-red {
+  background: var(--red);
+  color: white;
+  box-shadow: 0 0 18px #ff365520;
+}
+
+.btn-outline {
+  background: #0c2416;
+  color: var(--green);
+  border: 1px solid var(--green);
+}
+
+.btn-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 17px;
+}
+
+.btn-row button {
+  flex: 1;
+}
+
+.error {
+  color: var(--red);
+  font-size: 12px;
+  min-height: 18px;
+  margin-top: 10px;
+}
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  position: relative;
+  padding: 20px;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+  background: #08170f;
+  overflow: hidden;
+}
+
+.stat::after {
+  content: "";
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  right: -30px;
+  bottom: -35px;
+  border: 1px solid #00ff881a;
+  border-radius: 50%;
+}
+
+.stat-icon {
+  font-size: 23px;
+  margin-bottom: 13px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  margin-top: 9px;
+  font-size: clamp(15px, 2vw, 24px);
+  color: var(--green);
+  overflow-wrap: anywhere;
+}
+
+/* TERMINALS */
+
+.terminal {
+  border: 1px solid #235b3c;
+  border-radius: 11px;
+  background: #000;
+  overflow: hidden;
+  box-shadow: inset 0 0 35px #00ff8808;
+}
+
+.terminal-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px;
+  background: #101d15;
+  border-bottom: 1px solid #1b422c;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.r {
+  background: #ff5365;
+}
+
+.dot.y {
+  background: #ffce68;
+}
+
+.dot.g {
+  background: #00ff88;
+}
+
+.terminal-name {
+  margin-left: 10px;
+  font-size: 11px;
+  color: #8da995;
+}
+
+.terminal-screen {
+  height: 330px;
+  padding: 16px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+  scrollbar-width: thin;
+  scrollbar-color: #17683b #030806;
+}
+
+.terminal-line {
+  animation: lineIn .15s ease;
+}
+
+@keyframes lineIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.log-green {
+  color: var(--green);
+}
+
+.log-red {
+  color: #ff526c;
+}
+
+.log-gold {
+  color: var(--gold);
+}
+
+.log-dim {
+  color: #739782;
+}
+
+.terminal-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 15px;
+  background: #07140c;
+  border-top: 1px solid #173c28;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 13px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink .8s infinite;
+}
+
+/* PROGRESS */
+
+.progress-area {
+  margin-top: 20px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 11px;
+  font-size: 12px;
+}
+
+.progress-track {
+  height: 12px;
+  background: #17251b;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--red), var(--green));
+  box-shadow: 0 0 20px var(--green);
+  transition: width .25s;
+}
+
+/* WEBSITE STATS */
+
+.website-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.website-stat {
+  text-align: center;
+  padding: 15px;
+  background: #06130b;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.website-stat strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.website-stat span {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* LOCKED PANELS */
+
+.protected-panel {
+  position: relative;
+  min-height: 240px;
+}
+
+.protected-content {
+  transition: filter .4s, opacity .4s;
+}
+
+.protected-panel.is-locked .protected-content {
+  filter: blur(13px);
+  opacity: .25;
+  pointer-events: none;
+  user-select: none;
+}
+
+.lock-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  background: #00000040;
+}
+
+.protected-panel.is-locked .lock-overlay {
+  display: flex;
+}
+
+.lock-card {
+  width: min(100%, 390px);
+  padding: 28px 20px;
+  text-align: center;
+  background: #06110cf7;
+  border: 1px solid var(--red);
+  border-radius: 15px;
+  box-shadow:
+    0 0 35px #ff365530,
+    inset 0 0 25px #00ff8810;
+}
+
+.lock-icon {
+  font-size: 46px;
+  margin-bottom: 17px;
+  animation: float 3s infinite;
+}
+
+.lock-title {
+  color: var(--red);
+  font-size: 19px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px #ff365555;
+}
+
+.lock-description {
+  color: #91ac9a;
+  font-size: 11px;
+  line-height: 1.9;
+  margin: 15px 0 22px;
+}
+
+.unlock-button {
+  width: 100%;
+  color: #00170b;
+  background: linear-gradient(90deg, var(--red), var(--green));
+}
+
+.lock-status {
+  margin-top: 14px;
+  font-size: 10px;
+  color: var(--gold);
+}
+
+/* RESULTS */
+
+#resultPanel {
+  display: none;
+}
+
+.hash-output {
+  padding: 20px;
+  margin: 15px 0;
+  background: #010503;
+  border: 1px solid var(--green);
+  border-radius: 9px;
+  color: #eafff0;
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.detail {
+  padding: 17px;
+  background: #06130b;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.detail small {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.detail strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.report-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 15px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.report-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 13px;
+  border-bottom: 1px solid #173b28;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.report-item:last-child {
+  border-bottom: none;
+}
+
+.report-item span:last-child {
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.report-heading {
+  margin-top: 28px;
+  color: var(--green);
+  font-size: 14px;
+}
+
+.report-search {
+  margin-top: 15px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.history-item span:last-child {
+  color: var(--muted);
+}
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 15px;
+  background: #000e;
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-box {
+  width: min(100%, 520px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 25px;
+  background: #07140c;
+  border: 1px solid var(--green);
+  border-radius: 15px;
+  box-shadow: 0 0 50px #00ff8825;
+}
+
+.modal-box h2 {
+  margin-bottom: 20px;
+  font-size: 21px;
+}
+
+.modal-box p {
+  margin: 15px 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.password-result {
+  display: none;
+  padding: 20px;
+  margin-top: 18px;
+  text-align: center;
+  background: #010503;
+  border: 1px solid var(--green);
+  border-radius: 9px;
+}
+
+.password-result strong {
+  display: block;
+  margin-top: 12px;
+  color: white;
+  font-size: 23px;
+  overflow-wrap: anywhere;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 30px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 2;
+}
+
+footer strong {
+  color: var(--green);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+  .container {
+    padding: 9px;
+  }
+
+  .panel {
+    padding: 15px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat {
+    padding: 15px;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-row {
+    flex-direction: column;
+  }
+
+  .terminal-screen {
+    height: 290px;
+  }
+
+  .website-stats {
+    gap: 7px;
+  }
+
+  .website-stat {
+    padding: 11px 5px;
+  }
+
+  .website-stat strong {
+    font-size: 17px;
+  }
+
+  .subtitle {
+    letter-spacing: 1px;
+  }
+
+  .lock-card {
+    padding: 22px 15px;
+  }
+
+  .lock-title {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="container">
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="logo">💀</div>
+
+    <h1>
+      <span class="red">TV</span>
+      HASH
+      <span class="green">CRACKER</span>
+    </h1>
+
+    <p class="subtitle">
+      ADVANCED CYBER SECURITY TERMINAL
+    </p>
+
+    <div class="badges">
+
+      <span class="badge">
+        <span class="live-dot"></span>
+        SYSTEM ONLINE
+      </span>
+
+      <span class="badge">
+        ⚡ ULTRA PRO V7
+      </span>
+
+      <span class="badge">
+        🔐 ACCESS CONTROL
+      </span>
+
+      <span class="badge gold">
+        SIMULATION
+      </span>
+
+    </div>
+
+  </header>
+
+  <!-- TARGET CONFIGURATION -->
+
+  <section class="panel">
+
+    <h3 class="panel-title">
+      <span class="icon">🎯</span>
+      TARGET CONFIGURATION
+    </h3>
+
+    <label for="email">EMAIL ADDRESS</label>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="username@gmail.com"
+      autocomplete="off"
+      spellcheck="false"
+    >
+
+    <div class="error" id="error"></div>
+
+    <div class="btn-row">
+
+      <button
+        class="btn-green"
+        id="startBtn"
+        onclick="startScan()"
+      >
+        ⚡ INITIALIZE SCAN
+      </button>
+
+      <button
+        class="btn-red"
+        id="stopBtn"
+        onclick="stopScan()"
+        disabled
+      >
+        ■ TERMINATE
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">🔐</div>
+      <div class="stat-label">ATTEMPTS</div>
+      <div class="stat-value" id="attempts">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-label">SPEED</div>
+      <div class="stat-value" id="speed">0/sec</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">⏱️</div>
+      <div class="stat-label">ELAPSED</div>
+      <div class="stat-value" id="elapsed">00:00</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🛡️</div>
+      <div class="stat-label">STATUS</div>
+      <div class="stat-value" id="status">IDLE</div>
+    </div>
+
+  </div>
+
+  <!-- TERMINAL 1 -->
+
+  <section class="panel">
+
+    <h3 class="panel-title">
+      <span class="icon">💻</span>
+      PASSWORD ANALYSIS TERMINAL
+    </h3>
+
+    <div class="terminal">
+
+      <div class="terminal-top">
+
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+
+        <span class="terminal-name">
+          root@tv-hash:~/analysis
+        </span>
+
+      </div>
+
+      <div class="terminal-screen" id="terminal1">
+
+        <div class="terminal-line log-green">
+          [SYSTEM] TV HASH CRACKER INITIALIZED
+        </div>
+
+        <div class="terminal-line log-dim">
+          [ENGINE] Waiting for target...
+        </div>
+
+      </div>
+
+      <div class="terminal-footer">
+
+        <span>
+          ENGINE: HASH-CORE
+          <span class="cursor"></span>
+        </span>
+
+        <span id="terminalStatus">STANDBY</span>
+
+      </div>
+
+    </div>
+
+    <div class="progress-area">
+
+      <div class="progress-info">
+        <span>ANALYSIS PROGRESS</span>
+        <span id="percentage">0%</span>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progress"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TERMINAL 2 -->
+
+  <section class="panel">
+
+    <h3 class="panel-title">
+      <span class="icon">🌐</span>
+      WEBSITE ACTIVITY TERMINAL
+    </h3>
+
+    <div class="website-stats">
+
+      <div class="website-stat">
+        <strong class="green" id="sitesChecked">0</strong>
+        <span>CHECK EVENTS</span>
+      </div>
+
+      <div class="website-stat">
+        <strong class="green" id="logsFound">0</strong>
+        <span>LOG FOUND</span>
+      </div>
+
+      <div class="website-stat">
+        <strong class="red" id="logsMissing">0</strong>
+        <span>NOT FOUND</span>
+      </div>
+
+    </div>
+
+    <div class="terminal">
+
+      <div class="terminal-top">
+
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+
+        <span class="terminal-name">
+          root@tv-hash:~/activity
+        </span>
+
+      </div>
+
+      <div class="terminal-screen" id="terminal2">
+
+        <div class="terminal-line log-green">
+          [NETWORK] ACTIVITY ENGINE READY
+        </div>
+
+        <div class="terminal-line log-dim">
+          [STATUS] Waiting for analysis...
+        </div>
+
+      </div>
+
+      <div class="terminal-footer">
+
+        <span>ACTIVITY ENGINE</span>
+
+        <span id="websiteStatus">STANDBY</span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROTECTED RESULT -->
+
+  <section
+    class="panel protected-panel is-locked"
+    id="resultPanel"
+  >
+
+    <div class="protected-content">
+
+      <h3 class="panel-title">
+        <span class="icon">🔐</span>
+        CLASSIFIED ANALYSIS REPORT
+      </h3>
+
+      <div id="resultBody">
+
+        <div class="hash-output">
+          ████████████████████████████████
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="lock-overlay">
+
+      <div class="lock-card">
+
+        <div class="lock-icon">🔒</div>
+
+        <h2 class="lock-title">
+          ACCESS RESTRICTED
+        </h2>
+
+        <p class="lock-description">
+          ANALYSIS REPORT LOCKED<br>
+          ADMIN AUTHENTICATION REQUIRED
+        </p>
+
+        <button
+          class="unlock-button"
+          onclick="openAccessModal('details')"
+        >
+          🔓 UNLOCK DETAILS
+        </button>
+
+        <div class="lock-status">
+          SECURITY LEVEL: ADMIN
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROTECTED HISTORY -->
+
+  <section
+    class="panel protected-panel is-locked"
+    id="historyPanel"
+  >
+
+    <div class="protected-content">
+
+      <h3 class="panel-title">
+        <span class="icon">📁</span>
+        CLASSIFIED SCAN HISTORY
+      </h3>
+
+      <div id="history">
+
+        <div class="history-item">
+          <span>████████████████</span>
+          <span>LOCKED</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="lock-overlay">
+
+      <div class="lock-card">
+
+        <div class="lock-icon">🔒</div>
+
+        <h2 class="lock-title">
+          HISTORY LOCKED
+        </h2>
+
+        <p class="lock-description">
+          PREVIOUS SCAN RECORDS<br>
+          ADMIN ACCESS REQUIRED
+        </p>
+
+        <button
+          class="unlock-button"
+          onclick="openAccessModal('history')"
+        >
+          🔓 UNLOCK HISTORY
+        </button>
+
+        <div class="lock-status">
+          SECURITY LEVEL: ADMIN
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+
+    TV HASH CRACKER V7 — ULTRA PRO
+    <br>
+
+    LOCAL SECURITY SIMULATION
+    <br><br>
+
+    Made by
+    <strong>Akshay Prakash Joshi</strong>
+
+  </footer>
+
+</div>
+
+<!-- AUTHENTICATION MODAL -->
+
+<div class="modal" id="accessModal">
+
+  <div class="modal-box">
+
+    <div id="authScreen">
+
+      <h2>🔐 ADMIN AUTHENTICATION</h2>
+
+      <p id="authMessage">
+        ENTER ADMINISTRATOR ACCESS PASSWORD
+      </p>
+
+      <input
+        type="password"
+        id="accessPassword"
+        placeholder="Enter access password"
+        autocomplete="off"
+      >
+
+      <div class="btn-row">
+
+        <button
+          class="btn-green"
+          onclick="verifyAccess()"
+        >
+          AUTHENTICATE
+        </button>
+
+        <button
+          class="btn-red"
+          onclick="closeAccessModal()"
+        >
+          CLOSE
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- CONVERTER -->
+
+    <div id="converterScreen" style="display:none">
+
+      <h2>🔓 HASH CONVERTER</h2>
+
+      <p>GENERATED SHA-256 HASH</p>
+
+      <div
+        class="hash-output"
+        id="converterHash"
+      ></div>
+
+      <button
+        class="btn-green"
+        style="width:100%"
+        onclick="convertHash()"
+      >
+        ⚡ REVEAL STORED MAPPING
+      </button>
+
+      <div
+        class="password-result"
+        id="passwordResult"
+      >
+
+        GENERATED PASSWORD
+
+        <strong id="finalPassword"></strong>
+
+      </div>
+
+      <button
+        class="btn-outline"
+        style="width:100%;margin-top:15px"
+        onclick="closeAccessModal()"
+      >
+        CLOSE
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+"use strict";
+
+/* ==========================================
+   TV HASH CRACKER V7
+   LOCAL SIMULATION ENGINE
+========================================== */
+
+const $ = id => document.getElementById(id);
+
+const ADMIN_PASSWORD = "hacker@@1234##";
+const ROOT_PASSWORD = "hacker@@1234akki";
+
+const RATE = 4;
+const TOTAL_SITE_EVENTS = 500;
+const AUTO_LOCK_MS = 5 * 60 * 1000;
+
+const HISTORY_KEY = "tv_hash_v7_history";
+
+let scanTimer = null;
+let scanActive = false;
+let scanEmail = "";
+let scanStarted = 0;
+let scanDuration = 0;
+let scanDenied = false;
+
+let attemptsShown = 0;
+let sitesShown = 0;
+let foundCount = 0;
+let missingCount = 0;
+
+let currentHash = "";
+let currentPassword = "";
+let currentReport = null;
+
+let detailsUnlocked = false;
+let historyUnlocked = false;
+
+let accessMode = "details";
+
+let adminFailures = 0;
+let adminLocked = false;
+
+let inactivityTimer = null;
+let scanGeneration = 0;
+
+/* ==========================================
+   PUBLIC WEBSITE NAME CATALOG
+
+   These are domain labels only.
+   No network requests are made.
+========================================== */
+
+const domains = [
+  "google.com",
+  "youtube.com",
+  "facebook.com",
+  "instagram.com",
+  "whatsapp.com",
+  "x.com",
+  "reddit.com",
+  "linkedin.com",
+  "github.com",
+  "microsoft.com",
+  "apple.com",
+  "amazon.com",
+  "netflix.com",
+  "spotify.com",
+  "tiktok.com",
+  "pinterest.com",
+  "snapchat.com",
+  "discord.com",
+  "telegram.org",
+  "wikipedia.org",
+  "yahoo.com",
+  "bing.com",
+  "outlook.com",
+  "gmail.com",
+  "dropbox.com",
+  "adobe.com",
+  "canva.com",
+  "figma.com",
+  "notion.so",
+  "stackoverflow.com",
+  "medium.com",
+  "quora.com",
+  "twitch.tv",
+  "steampowered.com",
+  "epicgames.com",
+  "roblox.com",
+  "minecraft.net",
+  "ea.com",
+  "ubisoft.com",
+  "playstation.com",
+  "xbox.com",
+  "nintendo.com",
+  "paypal.com",
+  "ebay.com",
+  "etsy.com",
+  "aliexpress.com",
+  "alibaba.com",
+  "flipkart.com",
+  "myntra.com",
+  "ajio.com",
+  "nykaa.com",
+  "swiggy.com",
+  "zomato.com",
+  "uber.com",
+  "olacabs.com",
+  "rapido.bike",
+  "makemytrip.com",
+  "goibibo.com",
+  "booking.com",
+  "airbnb.com",
+  "tripadvisor.com",
+  "expedia.com",
+  "irctc.co.in",
+  "paytm.com",
+  "phonepe.com",
+  "razorpay.com",
+  "stripe.com",
+  "wise.com",
+  "revolut.com",
+  "coinbase.com",
+  "binance.com",
+  "tradingview.com",
+  "investing.com",
+  "moneycontrol.com",
+  "zerodha.com",
+  "groww.in",
+  "upstox.com",
+  "hdfcbank.com",
+  "icicibank.com",
+  "axisbank.com",
+  "sbi.co.in",
+  "kotak.com",
+  "coursera.org",
+  "udemy.com",
+  "edx.org",
+  "khanacademy.org",
+  "duolingo.com",
+  "skillshare.com",
+  "codecademy.com",
+  "freecodecamp.org",
+  "geeksforgeeks.org",
+  "w3schools.com",
+  "developer.mozilla.org",
+  "npmjs.com",
+  "pypi.org",
+  "docker.com",
+  "cloudflare.com",
+  "vercel.com",
+  "netlify.com",
+  "firebase.google.com",
+  "aws.amazon.com",
+  "azure.microsoft.com",
+  "digitalocean.com",
+  "hostinger.com",
+  "godaddy.com",
+  "namecheap.com",
+  "wordpress.com",
+  "blogger.com",
+  "tumblr.com",
+  "substack.com",
+  "bbc.com",
+  "cnn.com",
+  "reuters.com",
+  "theguardian.com",
+  "nytimes.com",
+  "washingtonpost.com",
+  "forbes.com",
+  "businessinsider.com",
+  "techcrunch.com",
+  "theverge.com",
+  "wired.com",
+  "cnet.com",
+  "gsmarena.com",
+  "91mobiles.com",
+  "indiatoday.in",
+  "ndtv.com",
+  "hindustantimes.com",
+  "timesofindia.com",
+  "indianexpress.com",
+  "news18.com",
+  "espn.com",
+  "cricbuzz.com",
+  "espncricinfo.com",
+  "fifa.com",
+  "nba.com",
+  "formula1.com",
+  "olympics.com",
+  "imdb.com",
+  "rottentomatoes.com",
+  "primevideo.com",
+  "hotstar.com",
+  "sonyliv.com",
+  "zee5.com",
+  "disneyplus.com",
+  "soundcloud.com",
+  "bandcamp.com",
+  "shazam.com",
+  "genius.com",
+  "openai.com",
+  "anthropic.com",
+  "perplexity.ai",
+  "huggingface.co",
+  "kaggle.com",
+  "leetcode.com",
+  "hackerrank.com",
+  "codeforces.com",
+  "replit.com",
+  "codepen.io",
+  "jsfiddle.net",
+  "gitlab.com",
+  "bitbucket.org",
+  "atlassian.com",
+  "trello.com",
+  "asana.com",
+  "monday.com",
+  "clickup.com",
+  "slack.com",
+  "zoom.us",
+  "skype.com",
+  "teams.microsoft.com",
+  "meet.google.com",
+  "proton.me",
+  "tuta.com",
+  "mail.com",
+  "aol.com",
+  "icloud.com",
+  "box.com",
+  "mega.nz",
+  "mediafire.com",
+  "wetransfer.com",
+  "archive.org"
+];
+
+/*
+  500 simulated website events are generated.
+  The catalog contains fewer than 500 unique domains,
+  so domains may repeat across rounds.
+*/
+
+/* ==========================================
+   DETERMINISTIC GENERATOR
+========================================== */
+
+function hashString(text) {
+  let hash = 2166136261;
+
+  for (let i = 0; i < text.length; i++) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
+}
+
+function seededRandom(seed) {
+  let state = seed >>> 0;
+
+  return function () {
+    state = (
+      Math.imul(state, 1664525) + 1013904223
+    ) >>> 0;
+
+    return state / 4294967296;
+  };
+}
+
+/* ==========================================
+   EMAIL VALIDATION
+========================================== */
+
+function validEmail(email) {
+  return /^[a-z0-9][a-z0-9._+-]*@(gmail\.com|yahoo\.com|outlook\.com)$/i
+    .test(email);
+}
+
+/* ==========================================
+   GENERATED PASSWORD
+========================================== */
+
+function generatePassword(email) {
+  const username = email
+    .split("@")[0]
+    .replace(/[^a-z]/gi, "")
+    .toLowerCase();
+
+  const base = username || "user";
+
+  const random = seededRandom(
+    hashString(email + "|password")
+  );
+
+  const start = Math.floor(
+    random() * Math.max(1, base.length - 3)
+  );
+
+  let part = base.slice(start, start + 4);
+
+  part = part.charAt(0).toUpperCase() + part.slice(1);
+
+  const symbols = ["@", "#", "$", "!", "&", "*"];
+
+  const symbol1 = symbols[
+    Math.floor(random() * symbols.length)
+  ];
+
+  const symbol2 = symbols[
+    Math.floor(random() * symbols.length)
+  ];
+
+  const digits = Math.floor(1000 + random() * 9000);
+
+  return part + symbol1 + digits + symbol2;
+}
+
+/* ==========================================
+   SHA-256
+
+   Pure JavaScript implementation ensures
+   a consistent SHA-256 output even when
+   opened directly as a local HTML file.
+========================================== */
+
+function sha256(text) {
+  const bytes = new TextEncoder().encode(text);
+
+  const K = [
+    0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,
+    0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,
+    0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,
+    0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,
+    0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,
+    0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,
+    0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,
+    0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,
+    0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+  ];
+
+  let H = [
+    0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,
+    0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19
+  ];
+
+  const length = bytes.length;
+  const bitLength = length * 8;
+
+  const paddedLength =
+    Math.ceil((length + 9) / 64) * 64;
+
+  const data = new Uint8Array(paddedLength);
+  data.set(bytes);
+  data[length] = 0x80;
+
+  const view = new DataView(data.buffer);
+
+  const high = Math.floor(bitLength / 4294967296);
+  const low = bitLength >>> 0;
+
+  view.setUint32(paddedLength - 8, high);
+  view.setUint32(paddedLength - 4, low);
+
+  const rotr = (x, n) =>
+    (x >>> n) | (x << (32 - n));
+
+  for (let offset = 0; offset < paddedLength; offset += 64) {
+    const W = new Uint32Array(64);
+
+    for (let i = 0; i < 16; i++) {
+      W[i] = view.getUint32(offset + i * 4);
+    }
+
+    for (let i = 16; i < 64; i++) {
+      const s0 =
+        rotr(W[i - 15], 7) ^
+        rotr(W[i - 15], 18) ^
+        (W[i - 15] >>> 3);
+
+      const s1 =
+        rotr(W[i - 2], 17) ^
+        rotr(W[i - 2], 19) ^
+        (W[i - 2] >>> 10);
+
+      W[i] = (
+        W[i - 16] +
+        s0 +
+        W[i - 7] +
+        s1
+      ) >>> 0;
+    }
+
+    let [a,b,c,d,e,f,g,h] = H;
+
+    for (let i = 0; i < 64; i++) {
+      const S1 =
+        rotr(e, 6) ^
+        rotr(e, 11) ^
+        rotr(e, 25);
+
+      const ch = (e & f) ^ (~e & g);
+
+      const temp1 = (
+        h + S1 + ch + K[i] + W[i]
+      ) >>> 0;
+
+      const S0 =
+        rotr(a, 2) ^
+        rotr(a, 13) ^
+        rotr(a, 22);
+
+      const maj =
+        (a & b) ^
+        (a & c) ^
+        (b & c);
+
+      const temp2 = (S0 + maj) >>> 0;
+
+      h = g;
+      g = f;
+      f = e;
+      e = (d + temp1) >>> 0;
+      d = c;
+      c = b;
+      b = a;
+      a = (temp1 + temp2) >>> 0;
+    }
+
+    H = H.map((value, i) => (
+      value + [a,b,c,d,e,f,g,h][i]
+    ) >>> 0);
+  }
+
+  return H.map(value =>
+    value.toString(16).padStart(8, "0")
+  ).join("");
+}
+
+/* ==========================================
+   SCAN SETTINGS
+========================================== */
+
+function getScanSettings(email) {
+  const random = seededRandom(
+    hashString(email + "|scan")
+  );
+
+  const roll = random();
+
+  let duration;
+
+  if (roll < .4) {
+    duration = 180 + Math.floor(random() * 120);
+  } else if (roll < .75) {
+    duration = 600 + Math.floor(random() * 1200);
+  } else {
+    duration = 3600 + Math.floor(random() * 7200);
+  }
+
+  return {
+    duration,
+    denied: random() < .2
+  };
+}
+
+/* ==========================================
+   WEBSITE ACTIVITY GENERATOR
+========================================== */
+
+function getWebsiteRecord(email, index) {
+  const random = seededRandom(
+    hashString(email + "|website|" + index)
+  );
+
+  const domainIndex = (
+    hashString(email + "|domain") +
+    index * 37
+  ) % domains.length;
+
+  return {
+    index: index + 1,
+    domain: domains[domainIndex],
+    found: random() < .16
+  };
+}
+
+function getWebsiteRecords(email) {
+  const records = [];
+
+  for (let i = 0; i < TOTAL_SITE_EVENTS; i++) {
+    records.push(getWebsiteRecord(email, i));
+  }
+
+  return records;
+}
+
+/* ==========================================
+   GENERATED BREACH REPORT
+========================================== */
+
+function getBreachReport(email, records) {
+  const random = seededRandom(
+    hashString(email + "|breach")
+  );
+
+  const available = [
+    ...new Set(
+      records
+        .filter(record => record.found)
+        .map(record => record.domain)
+    )
+  ];
+
+  const count = Math.min(
+    Math.floor(random() * 6),
+    available.length
+  );
+
+  const result = [];
+
+  for (let i = 0; i < count; i++) {
+    const index = Math.floor(
+      random() * available.length
+    );
+
+    const domain = available.splice(index, 1)[0];
+
+    if (domain) {
+      result.push({
+        domain,
+        year: 2018 + Math.floor(random() * 9)
+      });
+    }
+  }
+
+  return result;
+}
+
+/* ==========================================
+   TERMINAL HELPERS
+========================================== */
+
+function addLog(id, message, type = "log-green") {
+  const terminal = $(id);
+
+  const line = document.createElement("div");
+  line.className = "terminal-line " + type;
+  line.textContent = message;
+
+  terminal.appendChild(line);
+
+  while (terminal.children.length > 110) {
+    terminal.removeChild(terminal.firstChild);
+  }
+
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+function formatTime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+
+  const pad = number =>
+    String(number).padStart(2, "0");
+
+  if (h > 0) {
+    return `${pad(h)}:${pad(m)}:${pad(s)}`;
+  }
+
+  return `${pad(m)}:${pad(s)}`;
+}
+
+/* ==========================================
+   START SCAN
+========================================== */
+
+function startScan() {
+  const email = $("email").value.trim().toLowerCase();
+
+  if (!validEmail(email)) {
+    $("error").textContent = "This is not a valid ID";
+    return;
+  }
+
+  $("error").textContent = "";
+
+  stopTimerOnly();
+
+  scanGeneration++;
+
+  lockAllSections();
+
+  const settings = getScanSettings(email);
+
+  scanEmail = email;
+  scanDuration = settings.duration;
+  scanDenied = settings.denied;
+
+  scanStarted = Date.now();
+
+  attemptsShown = 0;
+  sitesShown = 0;
+  foundCount = 0;
+  missingCount = 0;
+
+  currentPassword = generatePassword(email);
+  currentHash = sha256(currentPassword);
+
+  currentReport = null;
+
+  scanActive = true;
+
+  $("startBtn").disabled = true;
+  $("stopBtn").disabled = false;
+
+  $("resultPanel").style.display = "none";
+  $("resultBody").replaceChildren();
+
+  $("terminal1").replaceChildren();
+  $("terminal2").replaceChildren();
+
+  $("attempts").textContent = "0";
+  $("speed").textContent = "4/sec";
+  $("elapsed").textContent = "00:00";
+  $("status").textContent = "RUNNING";
+
+  $("percentage").textContent = "0%";
+  $("progress").style.width = "0%";
+
+  $("sitesChecked").textContent = "0";
+  $("logsFound").textContent = "0";
+  $("logsMissing").textContent = "0";
+
+  $("terminalStatus").textContent = "ACTIVE";
+  $("websiteStatus").textContent = "ACTIVE";
+
+  addLog(
+    "terminal1",
+    "[SYSTEM] TV HASH CRACKER INITIALIZED"
+  );
+
+  addLog(
+    "terminal1",
+    "[TARGET] " + email
+  );
+
+  addLog(
+    "terminal1",
+    "[ENGINE] HASH ANALYSIS STARTED"
+  );
+
+  addLog(
+    "terminal1",
+    "[STATUS] PROCESSING...",
+    "log-gold"
+  );
+
+  addLog(
+    "terminal2",
+    "[SYSTEM] ACTIVITY ENGINE INITIALIZED"
+  );
+
+  addLog(
+    "terminal2",
+    "[TARGET] " + email
+  );
+
+  addLog(
+    "terminal2",
+    "[STATUS] ANALYZING SITE RECORDS...",
+    "log-gold"
+  );
+
+  scanTimer = setInterval(updateScan, 250);
+
+  updateScan();
+}
+
+/* ==========================================
+   UPDATE SCAN
+========================================== */
+
+function updateScan() {
+  if (!scanActive) return;
+
+  const elapsed = Math.min(
+    (Date.now() - scanStarted) / 1000,
+    scanDuration
+  );
+
+  const progress = Math.min(
+    elapsed / scanDuration,
+    1
+  );
+
+  const expectedAttempts = Math.floor(
+    elapsed * RATE
+  );
+
+  /*
+    Keep the terminal responsive after a
+    browser tab has been suspended.
+  */
+
+  const missingAttempts =
+    expectedAttempts - attemptsShown;
+
+  if (missingAttempts > 120) {
+    const skipped = missingAttempts - 120;
+
+    attemptsShown += skipped;
+
+    addLog(
+      "terminal1",
+      `[ENGINE] ${skipped.toLocaleString()} ATTEMPTS PROCESSED`,
+      "log-dim"
+    );
+  }
+
+  while (attemptsShown < expectedAttempts) {
+    attemptsShown++;
+
+    const number = String(
+      attemptsShown
+    ).padStart(6, "0");
+
+    addLog(
+      "terminal1",
+      `[${number}] PASSWORD ${attemptsShown} → NOT APPLIED`,
+      attemptsShown % 4 === 0
+        ? "log-red"
+        : "log-green"
+    );
+  }
+
+  $("attempts").textContent =
+    attemptsShown.toLocaleString("en-IN");
+
+  $("elapsed").textContent = formatTime(elapsed);
+
+  $("percentage").textContent =
+    Math.floor(progress * 100) + "%";
+
+  $("progress").style.width =
+    (progress * 100) + "%";
+
+  /* WEBSITE ACTIVITY */
+
+  const expectedSites = Math.min(
+    TOTAL_SITE_EVENTS,
+    Math.floor(progress * TOTAL_SITE_EVENTS)
+  );
+
+  while (sitesShown < expectedSites) {
+    const record = getWebsiteRecord(
+      scanEmail,
+      sitesShown
+    );
+
+    sitesShown++;
+
+    if (record.found) {
+      foundCount++;
+    } else {
+      missingCount++;
+    }
+
+    const number = String(
+      sitesShown
+    ).padStart(3, "0");
+
+    addLog(
+      "terminal2",
+      `[${number}] ${record.domain} → ${
+        record.found
+          ? "LOG FOUND"
+          : "LOG NOT FOUND"
+      }`,
+      record.found
+        ? "log-green"
+        : "log-red"
+    );
+  }
+
+  $("sitesChecked").textContent = sitesShown;
+  $("logsFound").textContent = foundCount;
+  $("logsMissing").textContent = missingCount;
+
+  if (progress >= 1) {
+    stopTimerOnly();
+    finishScan();
+  }
+}
+
+/* ==========================================
+   STOP
+========================================== */
+
+function stopTimerOnly() {
+  if (scanTimer !== null) {
+    clearInterval(scanTimer);
+    scanTimer = null;
+  }
+
+  scanActive = false;
+}
+
+function stopScan() {
+  if (!scanActive) return;
+
+  stopTimerOnly();
+
+  $("status").textContent = "STOPPED";
+
+  $("startBtn").disabled = false;
+  $("stopBtn").disabled = true;
+
+  $("terminalStatus").textContent = "TERMINATED";
+  $("websiteStatus").textContent = "TERMINATED";
+
+  addLog(
+    "terminal1",
+    "[SYSTEM] PROCESS TERMINATED BY USER",
+    "log-red"
+  );
+
+  addLog(
+    "terminal2",
+    "[SYSTEM] ACTIVITY ANALYSIS STOPPED",
+    "log-red"
+  );
+}
+
+/* ==========================================
+   FINISH SCAN
+========================================== */
+
+function finishScan() {
+  $("startBtn").disabled = false;
+  $("stopBtn").disabled = true;
+
+  $("terminalStatus").textContent = "COMPLETE";
+  $("websiteStatus").textContent = "COMPLETE";
+
+  $("percentage").textContent = "100%";
+  $("progress").style.width = "100%";
+
+  $("resultPanel").style.display = "block";
+
+  if (scanDenied) {
+    $("status").textContent = "DENIED";
+
+    addLog(
+      "terminal1",
+      "[ERROR] ACCESS DENIED",
+      "log-red"
+    );
+
+    currentReport = {
+      email: scanEmail,
+      denied: true
+    };
+
+    saveHistory(scanEmail, "DENIED");
+
+    lockAllSections();
+
+    return;
+  }
+
+  $("status").textContent = "COMPLETE";
+
+  addLog(
+    "terminal1",
+    "[ENGINE] HASH ANALYSIS COMPLETE",
+    "log-gold"
+  );
+
+  addLog(
+    "terminal2",
+    "[ENGINE] WEBSITE ACTIVITY ANALYSIS COMPLETE",
+    "log-gold"
+  );
+
+  const records = getWebsiteRecords(scanEmail);
+
+  const breaches = getBreachReport(
+    scanEmail,
+    records
+  );
+
+  const foundSites = [
+    ...new Set(
+      records
+        .filter(record => record.found)
+        .map(record => record.domain)
+    )
+  ];
+
+  const riskScore = Math.min(
+    100,
+    breaches.length * 15 + foundSites.length % 31
+  );
+
+  const riskLevel =
+    riskScore >= 70 ? "HIGH" :
+    riskScore >= 35 ? "MEDIUM" :
+    "LOW";
+
+  currentReport = {
+    email: scanEmail,
+    username: scanEmail.split("@")[0],
+    hash: currentHash,
+    records,
+    breaches,
+    foundSites,
+    riskScore,
+    riskLevel,
+    attempts: attemptsShown,
+    denied: false
+  };
+
+  /*
+    The actual report is kept out of the
+    page until the access gate is unlocked.
+  */
+
+  saveHistory(scanEmail, "COMPLETE");
+
+  lockAllSections();
+
+  $("resultPanel").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+/* ==========================================
+   REPORT RENDERING
+========================================== */
+
+function createDetail(label, value) {
+  const box = document.createElement("div");
+  box.className = "detail";
+
+  const small = document.createElement("small");
+  small.textContent = label;
+
+  const strong = document.createElement("strong");
+  strong.textContent = value;
+
+  box.append(small, strong);
+
+  return box;
+}
+
+function createReportItem(leftText, rightText, color) {
+  const row = document.createElement("div");
+  row.className = "report-item";
+
+  const left = document.createElement("span");
+  left.textContent = leftText;
+
+  const right = document.createElement("span");
+  right.textContent = rightText;
+
+  if (color) {
+    right.style.color = color;
+  }
+
+  row.append(left, right);
+
+  return row;
+}
+
+function renderReport() {
+  const body = $("resultBody");
+  body.replaceChildren();
+
+  if (!detailsUnlocked || !currentReport) {
+    return;
+  }
+
+  const report = currentReport;
+
+  if (report.denied) {
+    const denied = document.createElement("h2");
+
+    denied.className = "red";
+    denied.style.textAlign = "center";
+    denied.style.padding = "25px";
+
+    denied.textContent = "⛔ ACCESS DENIED";
+
+    body.appendChild(denied);
+    return;
+  }
+
+  const label = document.createElement("p");
+  label.textContent = "GENERATED SHA-256 HASH";
+
+  const hashBox = document.createElement("div");
+  hashBox.className = "hash-output";
+  hashBox.textContent = report.hash;
+
+  const copyButton = document.createElement("button");
+  copyButton.className = "btn-outline";
+  copyButton.textContent = "📋 COPY HASH";
+
+  copyButton.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(report.hash);
+      copyButton.textContent = "✓ COPIED";
+    } catch {
+      copyButton.textContent = "COPY UNAVAILABLE";
+    }
+  };
+
+  const converterButton = document.createElement("button");
+  converterButton.className = "btn-green";
+  converterButton.textContent =
+    "🔓 HASH TO PASSWORD CONVERTER";
+
+  converterButton.onclick = () =>
+    openAccessModal("converter");
+
+  const buttons = document.createElement("div");
+  buttons.className = "btn-row";
+
+  buttons.append(copyButton, converterButton);
+
+  body.append(label, hashBox, buttons);
+
+  const grid = document.createElement("div");
+  grid.className = "result-grid";
+
+  const details = [
+    ["EMAIL", report.email],
+    ["USERNAME", report.username],
+    ["HASH TYPE", "SHA-256"],
+    ["WEBSITE EVENTS", String(TOTAL_SITE_EVENTS)],
+    ["LOG FOUND", String(foundCount)],
+    ["LOG NOT FOUND", String(missingCount)],
+    ["BREACH EVENTS", String(report.breaches.length)],
+    ["RISK LEVEL", report.riskLevel],
+    ["SECURITY SCORE", report.riskScore + "/100"],
+    ["STATUS", "ANALYSIS COMPLETE"]
+  ];
+
+  details.forEach(([label, value]) => {
+    grid.appendChild(createDetail(label, value));
+  });
+
+  body.appendChild(grid);
+
+  /* BREACH EVENTS */
+
+  const breachHeading = document.createElement("h3");
+  breachHeading.className = "report-heading";
+  breachHeading.textContent = "⚠ GENERATED BREACH EVENTS";
+
+  const breachList = document.createElement("div");
+  breachList.className = "report-list";
+
+  if (report.breaches.length === 0) {
+    breachList.appendChild(
+      createReportItem(
+        "NO EVENTS GENERATED",
+        "CLEAR"
+      )
+    );
+  } else {
+    report.breaches.forEach(item => {
+      breachList.appendChild(
+        createReportItem(
+          item.domain,
+          "EVENT " + item.year,
+          "var(--red)"
+        )
+      );
+    });
+  }
+
+  body.append(breachHeading, breachList);
+
+  /* FOUND WEBSITES */
+
+  const foundHeading = document.createElement("h3");
+  foundHeading.className = "report-heading";
+  foundHeading.textContent = "🌐 LOG FOUND WEBSITES";
+
+  const searchInput = document.createElement("input");
+  searchInput.className = "report-search";
+  searchInput.placeholder = "Search website names...";
+
+  const foundList = document.createElement("div");
+  foundList.className = "report-list";
+
+  function renderFoundSites(query = "") {
+    foundList.replaceChildren();
+
+    const filtered = report.foundSites.filter(domain =>
+      domain.includes(query.toLowerCase())
+    );
+
+    if (filtered.length === 0) {
+      foundList.appendChild(
+        createReportItem("NO MATCHES", "0 RESULTS")
+      );
+      return;
+    }
+
+    filtered.forEach((domain, index) => {
+      foundList.appendChild(
+        createReportItem(
+          `[${index + 1}] ${domain}`,
+          "LOG FOUND"
+        )
+      );
+    });
+  }
+
+  searchInput.addEventListener("input", () => {
+    renderFoundSites(searchInput.value.trim());
+  });
+
+  renderFoundSites();
+
+  body.append(
+    foundHeading,
+    searchInput,
+    foundList
+  );
+
+  /* EXPORT */
+
+  const exportButton = document.createElement("button");
+
+  exportButton.className = "btn-outline";
+  exportButton.style.width = "100%";
+  exportButton.style.marginTop = "20px";
+  exportButton.textContent = "📁 EXPORT REPORT";
+
+  exportButton.onclick = exportReport;
+
+  body.appendChild(exportButton);
+}
+
+/* ==========================================
+   EXPORT REPORT
+========================================== */
+
+function exportReport() {
+  if (!detailsUnlocked || !currentReport) {
+    return;
+  }
+
+  const exportData = {
+    tool: "TV HASH CRACKER V7",
+    environment: "LOCAL SIMULATION",
+    report: currentReport
+  };
+
+  const blob = new Blob(
+    [JSON.stringify(exportData, null, 2)],
+    { type: "application/json" }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const anchor = document.createElement("a");
+
+  anchor.href = url;
+  anchor.download = "TV_HASH_REPORT.json";
+
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/* ==========================================
+   PROTECTED ACCESS SYSTEM
+========================================== */
+
+function openAccessModal(mode) {
+  accessMode = mode;
+
+  $("accessModal").classList.add("active");
+
+  $("authScreen").style.display = "block";
+  $("converterScreen").style.display = "none";
+
+  $("accessPassword").value = "";
+
+  updateAuthMessage();
+
+  setTimeout(() => {
+    $("accessPassword").focus();
+  }, 100);
+}
+
+function closeAccessModal() {
+  $("accessModal").classList.remove("active");
+
+  $("accessPassword").value = "";
+  $("passwordResult").style.display = "none";
+}
+
+function updateAuthMessage() {
+  if (adminLocked) {
+    $("authMessage").textContent =
+      "SYSTEM LOCKED — ROOT PASSWORD REQUIRED";
+  } else {
+    $("authMessage").textContent =
+      `ADMIN ACCESS — ${3 - adminFailures} ATTEMPTS REMAINING`;
+  }
+}
+
+function verifyAccess() {
+  const entered = $("accessPassword").value;
+
+  if (adminLocked) {
+    if (entered === ROOT_PASSWORD) {
+      adminLocked = false;
+      adminFailures = 0;
+
+      grantAccess();
+    } else {
+      $("authMessage").textContent =
+        "ROOT AUTHENTICATION FAILED";
+    }
+
+    $("accessPassword").value = "";
+    return;
+  }
+
+  if (entered === ADMIN_PASSWORD) {
+    adminFailures = 0;
+
+    grantAccess();
+    return;
+  }
+
+  adminFailures++;
+
+  if (adminFailures >= 3) {
+    adminLocked = true;
+
+    $("authMessage").textContent =
+      "SYSTEM LOCKED — ROOT PASSWORD REQUIRED";
+  } else {
+    updateAuthMessage();
+  }
+
+  $("accessPassword").value = "";
+}
+
+function grantAccess() {
+  if (accessMode === "converter") {
+    showConverter();
+    return;
+  }
+
+  if (accessMode === "details") {
+    detailsUnlocked = true;
+    $("resultPanel").classList.remove("is-locked");
+
+    renderReport();
+  }
+
+  if (accessMode === "history") {
+    historyUnlocked = true;
+    $("historyPanel").classList.remove("is-locked");
+
+    renderHistory();
+  }
+
+  closeAccessModal();
+
+  resetAutoLock();
+}
+
+/* ==========================================
+   HASH CONVERTER
+========================================== */
+
+function showConverter() {
+  $("authScreen").style.display = "none";
+  $("converterScreen").style.display = "block";
+
+  $("converterHash").textContent = currentHash;
+
+  $("passwordResult").style.display = "none";
+
+  resetAutoLock();
+}
+
+function convertHash() {
+  if (!currentReport || currentReport.denied) {
+    return;
+  }
+
+  /*
+    This reveals a generated password
+    already mapped to the email.
+
+    It does not reverse SHA-256.
+  */
+
+  $("finalPassword").textContent = currentPassword;
+
+  $("passwordResult").style.display = "block";
+}
+
+/* ==========================================
+   LOCK SYSTEM
+========================================== */
+
+function lockAllSections() {
+  detailsUnlocked = false;
+  historyUnlocked = false;
+
+  $("resultPanel").classList.add("is-locked");
+  $("historyPanel").classList.add("is-locked");
+
+  /*
+    Remove sensitive report text from
+    the DOM when locked.
+  */
+
+  $("resultBody").replaceChildren();
+
+  $("history").replaceChildren();
+
+  const placeholder = document.createElement("div");
+  placeholder.className = "history-item";
+
+  const hidden = document.createElement("span");
+  hidden.textContent = "████████████████";
+
+  const status = document.createElement("span");
+  status.textContent = "LOCKED";
+
+  placeholder.append(hidden, status);
+
+  $("history").appendChild(placeholder);
+
+  clearTimeout(inactivityTimer);
+  inactivityTimer = null;
+
+  closeAccessModal();
+}
+
+function resetAutoLock() {
+  if (!detailsUnlocked && !historyUnlocked) {
+    return;
+  }
+
+  clearTimeout(inactivityTimer);
+
+  inactivityTimer = setTimeout(() => {
+    lockAllSections();
+  }, AUTO_LOCK_MS);
+}
+
+["click", "keydown", "touchstart"].forEach(eventName => {
+  document.addEventListener(eventName, () => {
+    if (detailsUnlocked || historyUnlocked) {
+      resetAutoLock();
+    }
+  });
+});
+
+/* ==========================================
+   HISTORY
+========================================== */
+
+function getHistory() {
+  try {
+    const stored = localStorage.getItem(HISTORY_KEY);
+
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(email, status) {
+  const history = getHistory();
+
+  history.unshift({
+    email,
+    status,
+    date: new Date().toLocaleString()
+  });
+
+  try {
+    localStorage.setItem(
+      HISTORY_KEY,
+      JSON.stringify(history.slice(0, 30))
+    );
+  } catch {
+    // Storage may be unavailable in some browsers.
+  }
+
+  if (historyUnlocked) {
+    renderHistory();
+  }
+}
+
+function renderHistory() {
+  if (!historyUnlocked) {
+    return;
+  }
+
+  const history = getHistory();
+  const container = $("history");
+
+  container.replaceChildren();
+
+  if (history.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "history-item";
+    empty.textContent = "No previous scans";
+
+    container.appendChild(empty);
+    return;
+  }
+
+  history.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "history-item";
+
+    const left = document.createElement("span");
+    left.textContent =
+      `${item.email} — ${item.status}`;
+
+    const right = document.createElement("span");
+    right.textContent = item.date;
+
+    row.append(left, right);
+    container.appendChild(row);
+  });
+}
+
+/* ==========================================
+   KEYBOARD SUPPORT
+========================================== */
+
+$("accessPassword").addEventListener(
+  "keydown",
+  event => {
+    if (event.key === "Enter") {
+      verifyAccess();
+    }
+  }
+);
+
+$("email").addEventListener(
+  "keydown",
+  event => {
+    if (
+      event.key === "Enter" &&
+      !$("startBtn").disabled
+    ) {
+      startScan();
+    }
+  }
+);
+
+/* ==========================================
+   MATRIX BACKGROUND
+========================================== */
+
+const canvas = $("matrix");
+const ctx = canvas.getContext("2d");
+
+let columns = [];
+let matrixTimer = null;
+
+const fontSize = 15;
+
+function resizeMatrix() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const count = Math.ceil(
+    canvas.width / fontSize
+  );
+
+  columns = Array.from(
+    { length: count },
+    () => Math.random() * -100
+  );
+}
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0,0,0,.065)";
+
+  ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  ctx.font = fontSize + "px monospace";
+
+  columns.forEach((y, index) => {
+    const character =
+      Math.random() > .5 ? "1" : "0";
+
+    ctx.fillStyle =
+      Math.random() > .92
+        ? "#ff3655"
+        : "#00ff88";
+
+    ctx.fillText(
+      character,
+      index * fontSize,
+      y * fontSize
+    );
+
+    if (
+      y * fontSize > canvas.height &&
+      Math.random() > .975
+    ) {
+      columns[index] = 0;
+    } else {
+      columns[index]++;
+    }
+  });
+}
+
+window.addEventListener("resize", resizeMatrix);
+
+resizeMatrix();
+
+if (
+  !window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches
+) {
+  matrixTimer = setInterval(drawMatrix, 60);
+}
+
+/* ==========================================
+   INITIAL STATE
+========================================== */
+
+lockAllSections();
+
+addLog(
+  "terminal1",
+  "[SYSTEM] SECURE TERMINAL READY",
+  "log-gold"
+);
+
+addLog(
+  "terminal2",
+  "[SYSTEM] WEBSITE ACTIVITY ENGINE READY",
+  "log-gold"
+);
+
+</script>
+
+</body>
+</html>
